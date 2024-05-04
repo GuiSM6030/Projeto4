@@ -60,3 +60,24 @@ void novoCliente() {
     printf("Cliente cadastrado com sucesso!\n");
     salvarDados();
 }
+
+void apagaCliente() {
+    char cpf[12];
+    printf("CPF do cliente a ser apagado: ");
+    scanf(" %s", cpf);
+
+    int i;
+    for (i = 0; i < num_clientes; i++) {
+        if (strcmp(clientes[i].cpf, cpf) == 0) {
+            for (int j = i; j < num_clientes - 1; j++) {
+                clientes[j] = clientes[j + 1];
+            }
+            num_clientes--;
+            printf("Cliente apagado com sucesso!\n");
+            salvarDados();
+            return;
+        }
+    }
+
+    printf("Cliente não encontrado.\n");
+}
