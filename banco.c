@@ -28,3 +28,35 @@ void carregarDados() {
         printf("Erro ao abrir o arquivo de dados.\n");
     }
 }
+
+void novoCliente() {
+    Cliente novo;
+    printf("Nome: ");
+    scanf(" %[^\n]", novo.nome);
+    printf("CPF: ");
+    scanf(" %s", novo.cpf);
+    printf("Senha: ");
+    scanf(" %s", novo.senha);
+    printf("Tipo de conta (comum ou plus): ");
+    scanf(" %s", novo.tipo_conta);
+    printf("Valor inicial da conta: ");
+    scanf("%f", &novo.saldo);
+
+    if (strcmp(novo.tipo_conta, "comum") == 0) {
+        novo.limite_negativo = -1000.0;
+        novo.taxa_debito = 0.05;
+    } else if (strcmp(novo.tipo_conta, "plus") == 0) {
+        novo.limite_negativo = -5000.0;
+        novo.taxa_debito = 0.03;
+    } else {
+        printf("Tipo de conta inválido!\n");
+        return;
+    }
+
+    novo.extrato = malloc(sizeof(char) * 1000);
+    novo.extrato[0] = '\0';
+
+    clientes[num_clientes++] = novo;
+    printf("Cliente cadastrado com sucesso!\n");
+    salvarDados();
+}
