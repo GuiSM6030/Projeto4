@@ -202,3 +202,20 @@ void transferencia() {
 
     printf("CPF (Origem) ou CPF (Destino) não encontrado.\n");
 }
+
+void adicionarTransacaoAoExtrato(Cliente *cliente, Transacao *transacao) {
+    cliente->extrato = realloc(cliente->extrato, strlen(cliente->extrato) + 100);
+
+    char temp[100];
+    strftime(temp, sizeof(temp), "%a %b %d %H:%M:%S %Y", localtime(&transacao->timestamp));
+    sprintf(cliente->extrato + strlen(cliente->extrato), "%s - R$ %.2f - %s\n", transacao->tipo, transacao->valor, temp);
+}
+
+void registrarTransacao(Cliente *cliente, char *tipo, float valor) {
+    Transacao transacao;
+    strcpy(transacao.tipo, tipo);
+    transacao.valor = valor;
+    transacao.timestamp = time(NULL);
+
+    adicionarTransacaoAoExtrato(cliente, &transacao);
+}
