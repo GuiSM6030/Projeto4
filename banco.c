@@ -120,3 +120,25 @@ void debito() {
 
     printf("CPF ou senha incorretos.\n");
 }
+
+void deposito() {
+    char cpf[12];
+    float valor;
+    printf("CPF: ");
+    scanf(" %s", cpf);
+    printf("Valor a ser depositado: ");
+    scanf("%f", &valor);
+
+    int i;
+    for (i = 0; i < num_clientes; i++) {
+        if (strcmp(clientes[i].cpf, cpf) == 0) {
+            clientes[i].saldo += valor;
+            registrarTransacao(&clientes[i], "Depósito", valor);
+            printf("Depósito realizado com sucesso!\n");
+            salvarDados();
+            return;
+        }
+    }
+
+    printf("CPF não encontrado.\n");
+}
