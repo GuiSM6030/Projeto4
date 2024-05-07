@@ -90,3 +90,33 @@ void listarClientes() {
                clientes[i].nome, clientes[i].cpf, clientes[i].tipo_conta, clientes[i].saldo);
     }
 }
+
+
+void debito() {
+    char cpf[12], senha[20];
+    float valor;
+    printf("CPF: ");
+    scanf(" %s", cpf);
+    printf("Senha: ");
+    scanf(" %s", senha);
+    printf("Valor a ser debitado: ");
+    scanf("%f", &valor);
+
+    int i;
+    for (i = 0; i < num_clientes; i++) {
+        if (strcmp(clientes[i].cpf, cpf) == 0 && strcmp(clientes[i].senha, senha) == 0) {
+            if (clientes[i].saldo - valor >= clientes[i].limite_negativo) {
+                clientes[i].saldo -= valor;
+                registrarTransacao(&clientes[i], "Débito", valor);
+                printf("Débito realizado com sucesso!\n");
+                salvarDados();
+                return;
+            } else {
+                printf("Saldo insuficiente para realizar o débito.\n");
+                return;
+            }
+        }
+    }
+
+    printf("CPF ou senha incorretos.\n");
+}
