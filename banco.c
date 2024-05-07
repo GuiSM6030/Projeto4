@@ -163,3 +163,42 @@ void extrato() {
 
     printf("CPF ou senha incorretos.\n");
 }
+
+void transferencia() {
+    char cpf_origem[12], senha_origem[20], cpf_destino[12];
+    float valor;
+    printf("CPF (Origem): ");
+    scanf(" %s", cpf_origem);
+    printf("Senha (Origem): ");
+    scanf(" %s", senha_origem);
+    printf("CPF (Destino): ");
+    scanf(" %s", cpf_destino);
+    printf("Valor a ser transferido: ");
+    scanf("%f", &valor);
+
+    int i, origem_idx = -1, destino_idx = -1;
+    for (i = 0; i < num_clientes; i++) {
+        if (strcmp(clientes[i].cpf, cpf_origem) == 0 && strcmp(clientes[i].senha, senha_origem) == 0) {
+            origem_idx = i;
+        } else if (strcmp(clientes[i].cpf, cpf_destino) == 0) {
+            destino_idx = i;
+        }
+    }
+
+    if (origem_idx != -1 && destino_idx != -1) {
+        if (clientes[origem_idx].saldo - valor >= clientes[origem_idx].limite_negativo) {
+            clientes[origem_idx].saldo -= valor;
+            clientes[destino_idx].saldo += valor;
+            registrarTransacao(&clientes[origem_idx], "Transferência para CPF: %s", valor);
+            registrarTransacao(&clientes[destino_idx], "Transferência de CPF: %s", valor);
+            printf("Transferência realizada com sucesso!\n");
+            salvarDados();
+            return;
+        } else {
+            printf("Saldo insuficiente para realizar a transferência.\n");
+            return;
+        }
+    }
+
+    printf("CPF (Origem) ou CPF (Destino) não encontrado.\n");
+}
