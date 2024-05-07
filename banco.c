@@ -142,3 +142,24 @@ void deposito() {
 
     printf("CPF não encontrado.\n");
 }
+
+void extrato() {
+    char cpf[12], senha[20];
+    printf("CPF: ");
+    scanf(" %s", cpf);
+    printf("Senha: ");
+    scanf(" %s", senha);
+
+    int i;
+    for (i = 0; i < num_clientes; i++) {
+        if (strcmp(clientes[i].cpf, cpf) == 0 && strcmp(clientes[i].senha, senha) == 0) {
+            printf("Extrato do cliente:\n");
+            printf("Nome: %s\nCPF: %s\nTipo de Conta: %s\nSaldo: R$ %.2f\n",
+                   clientes[i].nome, clientes[i].cpf, clientes[i].tipo_conta, clientes[i].saldo);
+            printf("Transações: \n%s\n", clientes[i].extrato);
+            return;
+        }
+    }
+
+    printf("CPF ou senha incorretos.\n");
+}
