@@ -29,6 +29,8 @@ typedef struct {
     time_t timestamp;          // Armazena a data e hora da transação
 } Transacao;
 
+
+
 // Protótipos das funções
 void salvarDados();            // Função para salvar os dados do banco
 void carregarDados();          // Função para carregar os dados do banco

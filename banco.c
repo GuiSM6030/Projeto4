@@ -3,6 +3,9 @@
 #include <string.h>   // Inclusão da biblioteca padrão de manipulação de strings
 #include "banco.h"    // Inclusão do arquivo de cabeçalho local
 
+Cliente clientes[MAX_CLIENTES];
+int num_clientes;
+
 void salvarDados() {
     FILE *arquivo;    // Declaração de um ponteiro para um arquivo
     arquivo = fopen("dados_clientes.bin", "wb");    // Abertura do arquivo binário para escrita em modo de substituição
