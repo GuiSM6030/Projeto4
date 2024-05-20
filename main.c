@@ -1,6 +1,8 @@
 #include <stdio.h>    // Inclusão da biblioteca padrão de entrada e saída
 #include "banco.h"    // Inclusão do arquivo de cabeçalho local
 
+
+
 int main() {
     carregarDados();    // Chamada da função para carregar os dados dos clientes
 
